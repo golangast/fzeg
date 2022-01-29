@@ -7,11 +7,12 @@ websocket replaces https:// with ws:// for websocket
 package main
 
 import (
+	s "github.com/golangast/fzeg/websocket/mainsocket"
 	"github.com/labstack/echo/v4"
 )
 
 //Routes is for routing
 func Routes(e *echo.Echo) {
-	e.GET("/ws*", Gamesocket)
+	e.GET("/ws*", s.Gamesocket)
 	e.GET("/ss", Message)
 }

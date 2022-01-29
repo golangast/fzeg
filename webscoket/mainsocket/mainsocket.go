@@ -4,14 +4,15 @@ import (
 	"fmt"
 	"net/http"
 
-	. "github.com/golangast/fzeg/websocket/registerscoket"
+	r "github.com/golangast/fzeg/websocket/registersocket"
+	u "github.com/golangast/fzeg/websocket/socketutility"
 	"github.com/gorilla/websocket"
 	"github.com/labstack/echo/v4"
 )
 
 func Gamesocket(c echo.Context) error {
 
-	pool := NewPool()
+	pool := r.NewPool()
 	go pool.Start()
 	fmt.Println("WebSocket Endpoint Hit")
 	conn, err := upgrader.Upgrade(c.Response(), c.Request(), nil)
@@ -20,7 +21,7 @@ func Gamesocket(c echo.Context) error {
 	}
 	defer conn.Close()
 
-	client := &websockets.Client{
+	client := &u.Client{
 		Conn: conn,
 		Pool: pool,
 	}

@@ -10,6 +10,14 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+var ClientIDShared []string
+var PoolIDs []string
+var Ids []string
+var clientids []string
+var Das []Data
+var Check bool
+var createdid string
+
 type Client struct {
 	Conn      *websocket.Conn
 	Pool      *Pool
@@ -55,9 +63,6 @@ type Message struct {
 	ClientID   string `json:"clientid"`
 	// Clients    []Client `json:"clients"`
 }
-
-var ClientIDShared []string
-var PoolIDs []string
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
@@ -129,11 +134,6 @@ func (c *Client) Read() {
 	}
 }
 
-var Ids []string
-var clientids []string
-var Check bool
-var createdid string
-
 func GetClientID() string {
 	ii := rand.Intn(100)
 	createdid = fmt.Sprint(ii)
@@ -148,5 +148,3 @@ func Contains(s []string, str string) bool {
 
 	return false
 }
-
-var Das []Data
