@@ -1,0 +1,46 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Connect to server",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}",
+            "port": 5002,
+            "host": "127.0.0.1",
+            "showLog": false
+        },
+        {
+            "name": "Launch Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}",
+            "env": {},
+            "args": [
+                "go run ."
+            ],
+            "dlvLoadConfig": {
+                "followPointers": true,
+                "maxVariableRecurse": 1,
+                "maxStringLen": 512,
+                "maxArrayValues": 64,
+                "maxStructFields": -1
+            },
+            "dlvFlags": [
+                "--check-go-version=false"
+            ]
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "sourceMaps": true,
+            "name": "Launch Chrome against localhost",
+            // your web server url
+            "url": "http://localhost:5200/ss",
+            // set your webroot directory
+            "webRoot": "${workspaceRoot}/mod/guys/createguy.js"
+        }
+    ]
+}
