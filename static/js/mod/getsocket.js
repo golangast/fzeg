@@ -13,47 +13,43 @@ export function getsocket(ws) {
 
         var guys = [];
         var getids = [];
-        var counter = 0;
         //load up guys in data
-        for (var i = 0; i < clients.length; i++) {
-            counter++;
+        for (var i = 0; i < clients.clientids.length; i++) {
             //get everyones coordinates
-            var ids = 'id' + clients[i].clientids[i];
+            var ids = 'id' + clients.clientids[i];
             var boxes = $("." + ids);
             var bbox = boxes.offset();
             var bf1right = bbox.left + boxes.outerWidth();
             var bf1bottom = bbox.top + boxes.outerHeight();
 
             var guy = {
-                left: clients[i].left,
-                top: clients[i].top,
+                left: bbox.left,
+                top: bbox.top,
                 right: bf1right,
                 bottom: bf1bottom,
-                clientid: clients[i].clientid[i]
+                clientid: clients.clientid[i]
             }
 
             //check if id is in array 
-            if (getids.includes(clients[i].clientids[i]) == false) {
-                getids.push(clients[i].clientids[i]);
+            if (getids.includes(clients.clientids[i]) == false) {
+                getids.push(clients.clientids[i]);
                 guys.push(guy);
-                console.log(guys[i].clientids, "!=", clients[i].clientids[i])
+                console.log(guys[i].clientids, "!=", clients.clientids[i])
             }
-            //take all new guys
-            $(".character").each(function () {
-                //find the instance of this guy
-                var className = $(this).attr("class");
-                var result = className.substring(className.lastIndexOf("id") + 2);
-                //per id of new guys
-                if (clients[i].id == result) {
-                    $(".id" + result).css("position", "absolute").
-                        animate({
-                            "top": clients[i].top,
-                            "left": clients[i].left,
-                            "right": clients[i].right,
-                            "bottom": clients[i].bottom,
-                        });
-                }
-            });
+
+            //find the instance of this guy
+            var className = $("id" + clients.clientid[i]).attr("class");
+            var result = className.substring(className.lastIndexOf("id") + 2);
+
+            $(".id" + result).css("position", "absolute").
+                animate({
+                    "top": guy.top,
+                    "left": guy.left,
+                    "right": guy.right,
+                    "bottom": guy.bottom,
+                });
+
+
         }
     }
 }

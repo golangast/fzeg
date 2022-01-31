@@ -26,6 +26,7 @@ type Client struct {
 	Right     float32  `json:"right,omitempty"`
 	Bottom    float32  `json:"bottom,omitempty"`
 	ClientIDs []string `json:"clientids,omitempty"`
+	Count     int      `json:"count,omitempty"`
 }
 
 type Data struct {
@@ -39,6 +40,7 @@ type Data struct {
 	Bottom    float32  `json:"bottom,omitempty"`
 	ClientIDs []string `json:"clientids,omitempty"`
 	CD        []Data   `json:"cd,omitempty"`
+	Count     int      `json:"count,omitempty"`
 }
 
 type Pool struct {
@@ -140,7 +142,10 @@ func Contains(s []string, str string) bool {
 	}
 	return false
 }
-
+func Remove(s []string, i int) []string {
+	s[i] = s[0]
+	return s[1:]
+}
 func Registering(c *Client, p *Pool) {
 	p.Clients[c] = true
 	fmt.Println("Size of Connection Pool: ", len(p.Clients))
@@ -175,8 +180,10 @@ func CycleClients(p *Pool, m Message) {
 		d.Top = client.Top
 		d.Right = client.Right
 		d.Bottom = client.Bottom
-		if d.Clientid != "01" {
+		if d.Count == len(d.ClientIDs) {
 			d.Clientid = p.ClientID
+		} else {
+			Remove(d.ClientIDs, len(d.ClientIDs)-1)
 		}
 		d.PoolID = p.PoolID
 

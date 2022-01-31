@@ -17,7 +17,8 @@ export function sendsocket(ws) {
             top: guy.top,
             right: guyright,
             bottom: guybottom,
-            clientid: guyid
+            clientid: guyid,
+            count: document.querySelectorAll("guy").length
         }
 
         //send it up

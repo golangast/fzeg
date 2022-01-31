@@ -8,10 +8,11 @@ export function createguys(client) {
         if ($(".first").not("id" + client.clientids[0])) {
             $(".first").addClass("id" + client.clientids[0]);
         }
+        var count = client.clientids.length - document.querySelectorAll("guy").length
         //create guys
-        for (let i = 1; i < client.clientids.length; i++) {
+        for (let i = 0; i < count; i++) {
             if ($("guy").not("id" + client.clientids[i])) {
-                $("#pane").append(`<guy border='0' class="character newguy id` + client.clientids[i] + `"><img src="/static/img/{{.guys.Color}}.png"></guy>`);
+                $("#pane").append(`<guy border='0' class="character newguy id` + client.clientids[i] + `"><img src=""></guy>`);
             }
         }
     }
